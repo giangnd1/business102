@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bản Chất Của Kinh Doanh — Chương 0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#1B2A4A;--gold:#C5973A;--slate:#4A5568;--cream:#FAF8F2;
+  --navy-l:#2D5986;--gold-l:rgba(197,151,58,.12);--bg:#FDFCF8;
+  --text:#1C1C1E;--muted:#6B7280;--border:rgba(197,151,58,.22);
+  --card:#FFFFFF;
+}
+body{font-family:'Source Serif 4',Georgia,'Times New Roman',serif;background:var(--bg);color:var(--text);line-height:1.7;font-size:16px;min-height:100vh}
+a{color:var(--navy-l);text-decoration:none}
+
+/* ── LAYOUT ── */
+.app{display:flex;min-height:100vh}
+.sidebar{position:fixed;top:0;left:0;width:220px;height:100vh;overflow-y:auto;border-right:1px solid var(--border);background:var(--cream);padding:0;display:flex;flex-direction:column;z-index:10}
+.main{margin-left:220px;flex:1;min-height:100vh;width:calc(100vw - 220px);overflow-x:hidden}
+
+/* ── SIDEBAR ── */
+.sb-brand{padding:28px 20px 20px;border-bottom:1px solid var(--border)}
+.sb-series{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.sb-title{font-family:'Playfair Display',serif;font-size:15px;color:var(--navy);line-height:1.3}
+.sb-title em{font-style:italic;color:var(--gold)}
+
+.sb-nav{padding:16px 0;flex:1}
+.sb-section{padding:6px 20px 4px;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-top:8px}
+.sb-link{display:block;padding:8px 20px;font-size:13px;color:var(--slate);cursor:pointer;border-left:2px solid transparent;transition:all .18s;line-height:1.4}
+.sb-link:hover{color:var(--navy);background:rgba(197,151,58,.07);border-left-color:rgba(197,151,58,.4)}
+.sb-link.active{color:var(--navy);background:rgba(197,151,58,.1);border-left-color:var(--gold);font-weight:400}
+.sb-link small{display:block;font-size:10.5px;color:var(--muted);font-style:italic;margin-top:1px}
+
+.sb-footer{padding:16px 20px;border-top:1px solid var(--border);font-size:10px;color:var(--muted);line-height:1.5}
+
+/* ── SECTIONS ── */
+.section{display:none}
+.section.active{display:block;animation:fadeUp .35s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── COVER ── */
+.cover{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:60px 48px;position:relative;overflow:hidden;background:linear-gradient(160deg,#FDFCF8 60%,rgba(197,151,58,.06))}
+.cover-series{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:28px}
+.cover h1{font-family:'Playfair Display',Georgia,serif;font-size:clamp(3.2rem,6vw,6rem);font-weight:400;color:var(--navy);line-height:1.05;margin-bottom:6px;white-space:normal;word-break:normal}
+.cover h1 em{font-style:italic;color:var(--gold)}
+.cover-subtitle{font-size:1rem;color:var(--slate);font-style:italic;margin-bottom:4px}
+.cover-en{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);opacity:.65;margin-bottom:36px}
+.cover-rule{width:48px;height:1px;background:var(--gold);margin:0 auto 28px;opacity:.4}
+.cover-desc{max-width:480px;font-size:.94rem;color:var(--slate);line-height:1.85;margin-bottom:36px}
+.cover-pills{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:36px}
+.pill{padding:5px 16px;border:1px solid var(--border);border-radius:999px;font-size:11px;color:var(--slate);letter-spacing:.04em}
+.cover-actions{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+.btn-p{padding:11px 30px;background:var(--navy);color:#fff;border:none;border-radius:2px;font-family:'Source Serif 4',serif;font-size:.88rem;cursor:pointer;letter-spacing:.05em;transition:background .2s}
+.btn-p:hover{background:var(--navy-l)}
+.btn-s{padding:11px 30px;background:transparent;color:var(--navy);border:1px solid var(--navy);border-radius:2px;font-family:'Source Serif 4',serif;font-size:.88rem;cursor:pointer;letter-spacing:.05em;transition:all .2s}
+.btn-s:hover{background:rgba(27,42,74,.06)}
+.cover-author{position:absolute;right:28px;bottom:24px;font-size:10px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;opacity:.45}
+
+/* ── CONTENT LAYOUT ── */
+.content{padding:52px 56px 80px;max-width:760px;width:100%}
+.content-label{font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;display:block}
+.content h2{font-family:'Playfair Display',serif;font-size:2rem;font-weight:400;color:var(--navy);margin-bottom:6px;line-height:1.2;white-space:normal;word-break:normal;overflow-wrap:break-word}
+.content-rule{width:36px;height:1px;background:var(--gold);margin:10px 0 24px;opacity:.45}
+.content p{font-size:.95rem;color:var(--text);line-height:1.88;margin-bottom:1.1rem}
+.content p strong{font-weight:400;color:var(--navy);font-style:italic}
+
+/* ── PULL QUOTE ── */
+.pq{border-left:3px solid var(--gold);padding:.9rem 1.4rem;margin:1.8rem 0;background:rgba(197,151,58,.05)}
+.pq p{font-style:italic;font-size:1.02rem;color:var(--navy);margin-bottom:.4rem!important}
+.pq cite{font-size:11px;color:var(--muted);letter-spacing:.08em;font-style:normal}
+
+/* ── STORY BOX ── */
+.story{border:1px solid var(--border);border-radius:3px;padding:1.6rem;margin:1.8rem 0;position:relative;background:linear-gradient(135deg,rgba(27,42,74,.025),rgba(197,151,58,.04))}
+.story::before{content:'◈ câu chuyện';position:absolute;top:-10px;left:14px;background:var(--bg);padding:0 8px;font-size:9px;letter-spacing:.2em;color:var(--gold);text-transform:uppercase}
+.story p{font-size:.93rem;color:var(--text);line-height:1.82;margin-bottom:.8rem}
+.story p:last-child{margin-bottom:0}
+
+/* ── MENTAL MODEL ── */
+.mm{border-left:3px solid var(--navy-l);background:rgba(45,89,134,.06);padding:1.1rem 1.4rem;margin:1.5rem 0;border-radius:0 3px 3px 0}
+.mm-label{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--navy-l);margin-bottom:5px}
+.mm-title{font-family:'Playfair Display',serif;font-size:1rem;color:var(--navy);margin-bottom:.5rem}
+.mm p{font-size:.87rem;color:var(--slate);line-height:1.7;margin:0!important}
+
+/* ── FORMULA ── */
+.formula{text-align:center;padding:1.2rem;margin:1.4rem 0;background:rgba(197,151,58,.07);border:1px solid var(--border);border-radius:3px}
+.formula p{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--navy);letter-spacing:.03em;margin:0!important}
+
+/* ── SECTION HEADING ── */
+.sh{margin:3rem 0 .4rem}
+.sh-num{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.sh h3{font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:400;color:var(--navy)}
+
+/* ── ERA TABLE ── */
+.era-tbl{width:100%;border-collapse:collapse;margin:1.4rem 0;border:1px solid var(--border);border-radius:3px;overflow:hidden}
+.era-tbl th{background:var(--navy);color:#fff;font-family:'Source Serif 4',serif;font-weight:400;font-size:12px;letter-spacing:.1em;text-align:left;padding:9px 14px;border:none}
+.era-tbl td{padding:10px 14px;font-size:13.5px;border-bottom:1px solid rgba(197,151,58,.12);vertical-align:top;line-height:1.5}
+.era-tbl tr:last-child td{border-bottom:none}
+.era-tbl tr:hover td{background:rgba(197,151,58,.04)}
+.era-n{color:var(--gold);font-size:12px;min-width:22px;font-style:italic}
+.era-name{color:var(--navy);font-family:'Playfair Display',serif;font-size:.95rem}
+.era-name small{display:block;color:var(--muted);font-family:'Source Serif 4',serif;font-size:11px;font-style:italic}
+.era-detail{color:var(--slate);font-size:12.5px}
+.era-tbl tr:last-child .era-name{color:var(--gold)}
+
+/* ── FORCE CARDS ── */
+.force-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin:1.4rem 0}
+.fc{border:1px solid var(--border);border-radius:3px;padding:1.1rem;position:relative;overflow:hidden;transition:border-color .2s}
+.fc:hover{border-color:rgba(197,151,58,.45)}
+.fc-n{position:absolute;right:10px;top:6px;font-size:2.8rem;font-family:'Playfair Display',serif;color:rgba(197,151,58,.13);line-height:1;pointer-events:none}
+.fc-title{font-family:'Playfair Display',serif;font-size:.98rem;color:var(--navy);margin-bottom:2px}
+.fc-en{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:9px}
+.fc p{font-size:.85rem;color:var(--slate);line-height:1.65;margin:0!important}
+.fc.wide{grid-column:1/-1}
+
+/* ── DECISION MAP ── */
+.dm{border:1px solid var(--border);border-radius:3px;overflow:hidden;margin:1.4rem 0}
+.dm-head{background:var(--navy);display:grid;grid-template-columns:90px 1fr;gap:0}
+.dm-head span{color:#fff;font-size:11px;letter-spacing:.1em;padding:9px 14px}
+.dm-row{display:grid;grid-template-columns:90px 1fr;border-bottom:1px solid rgba(197,151,58,.12)}
+.dm-row:last-child{border-bottom:none}
+.dm-row:hover{background:rgba(197,151,58,.03)}
+.dm-key{padding:14px;background:rgba(197,151,58,.06);border-right:1px solid var(--border);font-family:'Playfair Display',serif;font-size:1rem;color:var(--gold);font-style:italic;display:flex;align-items:center;justify-content:center}
+.dm-val{padding:12px 14px;font-size:13px;color:var(--slate);line-height:1.6}
+.dm-val strong{color:var(--navy);font-weight:400;font-style:italic}
+
+/* ── AXIS CARDS ── */
+.axes{display:grid;grid-template-columns:1fr 1fr 1fr;gap:13px;margin:1.4rem 0}
+.ax{border:1px solid var(--border);border-radius:3px;padding:1.1rem;text-align:center}
+.ax-icon{font-size:1.5rem;margin-bottom:6px}
+.ax-title{font-family:'Playfair Display',serif;font-size:.92rem;color:var(--navy);margin-bottom:2px}
+.ax-en{font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.ax p{font-size:.82rem;color:var(--muted);line-height:1.6;margin:0!important}
+
+/* ── TOC ── */
+.toc-part{margin-bottom:1.8rem}
+.toc-part-label{font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);padding-bottom:6px;border-bottom:1px solid var(--border);margin-bottom:8px}
+.toc-item{display:flex;align-items:baseline;gap:10px;padding:9px 0;border-bottom:1px solid rgba(197,151,58,.09);cursor:pointer;transition:all .15s}
+.toc-item:hover{padding-left:8px}
+.toc-item:hover .toc-name{color:var(--navy-l)}
+.toc-item.hl .toc-name{color:var(--navy)}
+.toc-item.hl .toc-num{color:var(--navy)}
+.toc-num{font-size:11px;color:var(--gold);min-width:22px;letter-spacing:.05em}
+.toc-name{font-size:.92rem;color:var(--slate);flex:1;line-height:1.35}
+.toc-sub{font-size:11px;color:var(--muted);font-style:italic;display:block;margin-top:1px}
+.toc-pg{font-size:11px;color:var(--muted);opacity:.4;min-width:28px;text-align:right}
+
+/* ── GROUPS ── */
+.groups{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:1.2rem 0}
+.gc{background:var(--cream);border:1px solid var(--border);padding:1rem 1.1rem;border-radius:3px}
+.gc-num{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:5px}
+.gc p{font-size:13px;color:var(--slate);line-height:1.6;margin:0!important}
+
+.footnote{font-size:12.5px;color:var(--muted);font-style:italic;margin-top:3rem;padding-top:1.4rem;border-top:1px solid var(--border)}
+</style>
+</head>
+<body>
+
+<div class="app">
+<!-- ══════════════ SIDEBAR ══════════════ -->
+<aside class="sidebar">
+  <div class="sb-brand">
+    <div class="sb-series">Series Triết Lý Kinh Doanh · Tập I</div>
+    <div class="sb-title">Bản Chất Của<br><em>Kinh Doanh</em></div>
+  </div>
+
+  <nav class="sb-nav">
+    <div class="sb-section">Mở đầu</div>
+    <div class="sb-link active" onclick="show('cover',this)">Bìa sách</div>
+    <div class="sb-link" onclick="show('toc',this)">Mục lục</div>
+    <div class="sb-link" onclick="show('preface',this)">Lời nói đầu
+      <small>Tại sao triết học kinh doanh?</small>
+    </div>
+
+    <div class="sb-section">Chương 0 — Big Picture</div>
+    <div class="sb-link" onclick="show('ch0',this)">Câu chuyện mở đầu
+      <small>Kabo, Zuri & buổi bình minh</small>
+    </div>
+    <div class="sb-link" onclick="show('ch0_1',this)">0.1 · Vũ trụ kinh doanh
+      <small>Nhìn từ 10.000 mét</small>
+    </div>
+    <div class="sb-link" onclick="show('ch0_2',this)">0.2 · Năm Lực Nguyên Thủy
+      <small>The Five Primal Forces</small>
+    </div>
+    <div class="sb-link" onclick="show('ch0_3',this)">0.3 · Bản Đồ Quyết Định
+      <small>The Decision Map</small>
+    </div>
+    <div class="sb-link" onclick="show('ch0_4',this)">0.4 · Ba Trục Triết Học
+      <small>Cách đọc cuốn sách này</small>
+    </div>
+
+    <div class="sb-section">Các chương tiếp theo</div>
+    <div class="sb-link" style="opacity:.5;cursor:default">1 · Trao Đổi Nguyên Thủy</div>
+    <div class="sb-link" style="opacity:.5;cursor:default">2 · Ngôn Ngữ Của Giá Trị</div>
+    <div class="sb-link" style="opacity:.5;cursor:default">3 · Huyền Thoại Tập Thể</div>
+    <div class="sb-link" style="opacity:.35;cursor:default;font-size:11px;padding:4px 20px">… 7 chương tiếp theo</div>
+  </nav>
+
+  <div class="sb-footer">
+    Giáo sư Nguyễn Minh Triết<br>
+    MIT Sloan · Cambridge, 2024
+  </div>
+</aside>
+
+<!-- ══════════════ MAIN ══════════════ -->
+<main class="main">
+
+<!-- COVER -->
+<div class="section active" id="cover">
+<div class="cover">
+  <p class="cover-series">Series Triết Lý Kinh Doanh · Tập I</p>
+  <h1>Bản Chất<br>Của <em>Kinh Doanh</em></h1>
+  <p class="cover-subtitle">Từ Buổi Bình Minh Của Nhân Loại Đến Kỷ Nguyên Trí Tuệ Nhân Tạo</p>
+  <p class="cover-en">The Nature of Business</p>
+  <div class="cover-rule"></div>
+  <p class="cover-desc">Cuốn sách không dạy bạn <em>cách</em> kinh doanh. Nó trả lời câu hỏi sâu hơn: kinh doanh thực sự <em>là gì</em> — bản chất của nó, nguồn gốc của nó, và những quy luật vượt thời gian định hình nó qua 200.000 năm lịch sử nhân loại.</p>
+  <div class="cover-pills">
+    <span class="pill">Triết học</span>
+    <span class="pill">Lý thuyết hệ thống</span>
+    <span class="pill">Tiến hóa kinh doanh</span>
+    <span class="pill">10 chương · 579 trang</span>
+  </div>
+  <div class="cover-actions">
+    <button class="btn-p" onclick="showById('ch0')">Đọc Chương 0 →</button>
+    <button class="btn-s" onclick="showById('preface')">Lời nói đầu</button>
+  </div>
+  <p class="cover-author">Giáo sư Nguyễn Minh Triết · MIT Sloan</p>
+</div>
+</div>
+
+<!-- TOC -->
+<div class="section" id="toc">
+<div class="content">
+  <p class="content-label">Mục lục đầy đủ</p>
+  <h2>Bản Đồ Hành Trình</h2>
+  <div class="content-rule"></div>
+
+  <div class="toc-part">
+    <p class="toc-part-label">Mở đầu</p>
+    <div class="toc-item hl" onclick="showById('preface')">
+      <span class="toc-num">◈</span>
+      <span class="toc-name">Lời Nói Đầu<span class="toc-sub">Tại Sao Chúng Ta Cần Triết Học Kinh Doanh</span></span>
+      <span class="toc-pg">7</span>
+    </div>
+    <div class="toc-item hl" onclick="showById('ch0')">
+      <span class="toc-num">0</span>
+      <span class="toc-name">Chương 0 — Bức Tranh Lớn<span class="toc-sub">Bản Đồ Của Một Hành Trình Dài 200.000 Năm</span></span>
+      <span class="toc-pg">15</span>
+    </div>
+  </div>
+
+  <div class="toc-part">
+    <p class="toc-part-label">Phần I · Nguồn Gốc — The Origin</p>
+    <div class="toc-item"><span class="toc-num">1</span><span class="toc-name">Trao Đổi Nguyên Thủy<span class="toc-sub">Khi Kinh Doanh Còn Là Bản Năng</span></span><span class="toc-pg">51</span></div>
+    <div class="toc-item"><span class="toc-num">2</span><span class="toc-name">Ngôn Ngữ Của Giá Trị<span class="toc-sub">Tiền Tệ Ra Đời Như Thế Nào</span></span><span class="toc-pg">101</span></div>
+    <div class="toc-item"><span class="toc-num">3</span><span class="toc-name">Huyền Thoại Tập Thể<span class="toc-sub">Doanh Nghiệp Như Một Sinh Vật</span></span><span class="toc-pg">151</span></div>
+  </div>
+
+  <div class="toc-part">
+    <p class="toc-part-label">Phần II · Tiến Hóa — The Evolution</p>
+    <div class="toc-item"><span class="toc-num">4</span><span class="toc-name">Cách Mạng Nông Nghiệp & Thặng Dư<span class="toc-sub">Mầm Mống Của Tư Bản</span></span><span class="toc-pg">201</span></div>
+    <div class="toc-item"><span class="toc-num">5</span><span class="toc-name">Con Đường Tơ Lụa & Toàn Cầu Hóa Đầu Tiên<span class="toc-sub">Khi Thế Giới Trở Nên Nhỏ Hơn</span></span><span class="toc-pg">251</span></div>
+    <div class="toc-item"><span class="toc-num">6</span><span class="toc-name">Cách Mạng Công Nghiệp<span class="toc-sub">Khi Máy Móc Thay Đổi Mọi Quy Tắc</span></span><span class="toc-pg">301</span></div>
+  </div>
+
+  <div class="toc-part">
+    <p class="toc-part-label">Phần III · Kỷ Nguyên Hiện Đại — The Modern Age</p>
+    <div class="toc-item"><span class="toc-num">7</span><span class="toc-name">Hệ Thống Thông Tin<span class="toc-sub">Não Bộ Của Kinh Tế Hiện Đại</span></span><span class="toc-pg">351</span></div>
+    <div class="toc-item"><span class="toc-num">8</span><span class="toc-name">Nền Kinh Tế Nền Tảng<span class="toc-sub">Platform Economy</span></span><span class="toc-pg">401</span></div>
+    <div class="toc-item"><span class="toc-num">9</span><span class="toc-name">Tư Bản Tri Thức<span class="toc-sub">Khi Ý Tưởng Vượt Giá Máy Móc</span></span><span class="toc-pg">451</span></div>
+    <div class="toc-item"><span class="toc-num">10</span><span class="toc-name">Trí Tuệ Nhân Tạo & Bình Minh Thứ Hai<span class="toc-sub">Khi Máy Móc Bắt Đầu Suy Nghĩ</span></span><span class="toc-pg">501</span></div>
+  </div>
+</div>
+</div>
+
+<!-- PREFACE -->
+<div class="section" id="preface">
+<div class="content">
+  <p class="content-label">Lời nói đầu</p>
+  <h2>Tại Sao Chúng Ta Cần<br>Triết Học Kinh Doanh</h2>
+  <div class="content-rule"></div>
+
+  <div class="pq">
+    <p>"Người không hiểu lịch sử sẽ bị kết án phải lặp lại nó. Người không hiểu bản chất của kinh doanh sẽ bị kết án phải thất bại theo những cách đã được tiên đoán trước."</p>
+    <cite>— Tác giả</cite>
+  </div>
+
+  <p>Năm 1972, khi tôi mới bước chân vào giảng đường MIT với tư cách một giảng viên trẻ vừa bảo vệ xong luận án tiến sĩ, một vị giáo sư kỳ cựu đã hỏi tôi một câu mà tôi mang theo suốt 50 năm qua:</p>
+
+  <div class="pq">
+    <p>"Anh có thể dạy cho sinh viên MBA cách làm một thương vụ thành công. Nhưng anh có thể dạy cho họ hiểu <em>tại sao</em> thương vụ đó thành công — hay thất bại — không?"</p>
+    <cite>— Giáo sư Harold Levitt, MIT, 1972</cite>
+  </div>
+
+  <p>Câu hỏi đó đã thay đổi toàn bộ hướng nghiên cứu của tôi. Và cuốn sách bạn đang đọc là câu trả lời của tôi sau 50 năm.</p>
+  <p>Chúng ta sống trong một thế giới ngập tràn sách về kinh doanh. Có hàng nghìn cuốn dạy bạn cách xây dựng startup, cách tối ưu hóa marketing, cách quản lý dòng tiền. Nhưng có điều gì đó còn thiếu — một câu hỏi nền tảng hơn, sâu hơn:</p>
+  <p style="font-family:'Playfair Display',serif;font-size:1.25rem;color:var(--navy);text-align:center;padding:1.2rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin:1.5rem 0;font-style:italic">Kinh doanh thực sự <em>là gì?</em></p>
+
+  <p>Đây không phải là câu hỏi học thuật thuần túy. Đây là câu hỏi sinh tồn. Bởi vì nếu bạn không hiểu bản chất của thứ bạn đang làm, bạn chỉ đang mù quáng đi theo những mô hình mà người khác đã tạo ra — trong những bối cảnh khác, cho những mục đích khác.</p>
+
+  <h3 style="font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--navy);margin:2.2rem 0 .7rem;font-style:italic;font-weight:400">Tại Sao Phải Là Triết Học?</h3>
+  <p>Jeff Bezos không phải là người đầu tiên bán sách online. Reed Hastings không phải là người đầu tiên cho thuê phim. Steve Jobs không phải là người đầu tiên làm điện thoại thông minh. Điều phân biệt họ không phải là kỹ thuật hay vốn — mà là <strong>khả năng nhìn thấy bản chất của vấn đề</strong> mà người khác không thấy.</p>
+  <p>Triết học kinh doanh không cho bạn câu trả lời. Nó cho bạn những <strong>câu hỏi đúng</strong>. Và đôi khi, hỏi đúng câu hỏi còn quan trọng hơn biết câu trả lời.</p>
+
+  <h3 style="font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--navy);margin:2.2rem 0 .7rem;font-style:italic;font-weight:400">Series Này Được Viết Cho Ai?</h3>
+  <div class="groups">
+    <div class="gc"><div class="gc-num">Nhóm 1</div><p>Người đang <strong>xây dựng doanh nghiệp</strong> — startup, SME, hay tập đoàn. Cần kim chỉ nam trong những quyết định không có trong sách giáo khoa.</p></div>
+    <div class="gc"><div class="gc-num">Nhóm 2</div><p>Người đang <strong>học kinh doanh</strong> — sinh viên MBA, học viên lãnh đạo. Muốn hiểu "tại sao" trước khi học "như thế nào".</p></div>
+    <div class="gc"><div class="gc-num">Nhóm 3</div><p>Người <strong>tò mò về thế giới</strong> — không nhất thiết là doanh nhân. Muốn hiểu tại sao kinh doanh định hình nền văn minh của chúng ta.</p></div>
+  </div>
+
+  <div class="pq">
+    <p>"Lịch sử không lặp lại chính nó, nhưng nó có vần điệu. Và nếu bạn hiểu được nhịp điệu của lịch sử kinh doanh, bạn sẽ có lợi thế không thể mua được bằng tiền."</p>
+    <cite>— Mark Twain (phỏng theo)</cite>
+  </div>
+
+  <p class="footnote">Cambridge, Massachusetts, 2024 · Giáo sư Nguyễn Minh Triết, Khoa Quản trị Sloan, MIT</p>
+</div>
+</div>
+
+<!-- CH0 INTRO -->
+<div class="section" id="ch0">
+<div class="content">
+  <p class="content-label">Chương 0 · Big Picture</p>
+  <h2>Bức Tranh Lớn</h2>
+  <p style="font-style:italic;color:var(--muted);margin-bottom:1.5rem;font-size:.93rem">Bản Đồ Của Một Hành Trình Dài 200.000 Năm</p>
+  <div class="content-rule"></div>
+
+  <div class="pq">
+    <p>"Nếu bạn muốn hiểu bất cứ điều gì về thế giới ngày nay, trước hết bạn phải hiểu lịch sử của nó. Và nếu bạn muốn hiểu lịch sử của nó, bạn phải bắt đầu từ trước khi có lịch sử."</p>
+    <cite>— Yuval Noah Harari, Sapiens</cite>
+  </div>
+
+  <div class="story">
+    <p>Hãy tưởng tượng bạn đang đứng ở Vùng Thung Lũng Rift, Đông Phi, cách đây khoảng 70.000 năm. Mặt trời vừa mọc. Không khí mang mùi cỏ khô và đất đỏ. Một nhóm khoảng ba mươi con người — Homo Sapiens, tổ tiên trực tiếp của chúng ta — đang bắt đầu ngày mới.</p>
+    <p>Một người đàn ông — hãy gọi anh là <strong>Kabo</strong> — đang đứng trước người đàn bà của bộ lạc khác. Kabo có trong tay một con dao đá obsidian được mài sắc bén từ ngọn núi lửa cách đó hai ngày đường. Người đàn bà — hãy gọi cô là <strong>Zuri</strong> — cầm một bó rễ cây thuốc quý hiếm chỉ mọc ở vùng đầm lầy mà bộ lạc cô cư trú.</p>
+    <p>Hai người nhìn nhau. Không cần nhiều lời. Họ trao đổi. Trong tích tắc đó, ở một cái thung lũng hoang sơ không có tên, không có người chứng kiến ngoại trừ những con linh dương đang gặm cỏ phía xa — <strong>kinh doanh ra đời</strong>.</p>
+  </div>
+
+  <p>Câu chuyện đó có vẻ đơn giản đến mức tầm thường. Nhưng ẩn bên dưới sự giản dị đó là một chuỗi những câu hỏi phi thường:</p>
+  <p>Tại sao Kabo không tự mài lấy dao mổ từ rễ cây? Tại sao Zuri không tự tìm lấy đá obsidian? Điều gì khiến hai người xa lạ quyết định <strong>tin tưởng</strong> nhau đủ để trao đổi? Và tại sao hành động trao đổi đơn giản đó — qua 70.000 năm tiến hóa — lại trở thành những tập đoàn đa quốc gia, những sàn giao dịch chứng khoán, những nền tảng kỹ thuật số kết nối hàng tỷ người?</p>
+  <p>Đây là những câu hỏi mà series "Bản Chất Của Kinh Doanh" được viết ra để trả lời.</p>
+
+  <div style="display:flex;gap:12px;margin-top:2rem;flex-wrap:wrap">
+    <button class="btn-p" onclick="showById('ch0_1')">Tiếp tục: 0.1 →</button>
+    <button class="btn-s" onclick="showById('toc')">Xem mục lục</button>
+  </div>
+</div>
+</div>
+
+<!-- CH0.1 -->
+<div class="section" id="ch0_1">
+<div class="content">
+  <p class="content-label">Chương 0 · Phần 0.1</p>
+  <h2>Vũ Trụ Kinh Doanh<br>Nhìn Từ 10.000 Mét</h2>
+  <div class="content-rule"></div>
+
+  <p>Trước khi đi vào chi tiết của từng thời kỳ lịch sử, tôi muốn đưa bạn lên cao — rất cao — để nhìn toàn cảnh bức tranh mà chúng ta sẽ đi vào.</p>
+  <p>Kinh doanh, ở cấp độ nguyên thủy nhất của nó, là câu trả lời của loài người cho một vấn đề căn bản của vũ trụ:</p>
+
+  <div class="formula">
+    <p>NGUỒN LỰC CÓ HẠN + NHU CẦU VÔ HẠN = VẤN ĐỀ PHÂN BỔ</p>
+  </div>
+
+  <p>Mọi hệ thống kinh doanh — từ buổi trao đổi nguyên thủy giữa Kabo và Zuri cho đến Amazon Marketplace với hàng trăm triệu sản phẩm — đều là những nỗ lực khác nhau để giải quyết vấn đề phân bổ này.</p>
+  <p>Nhưng không phải chỉ có vậy. Kinh doanh còn là một <strong>hệ thống xử lý thông tin</strong> — ai biết gì, khi nào, và điều đó ảnh hưởng đến quyết định như thế nào. Và sâu xa hơn nữa, kinh doanh là một <strong>cơ chế tạo ra ý nghĩa</strong> — khi bạn mua một chiếc áo của Hermès thay vì một chiếc áo có chất lượng tương đương với giá 1/100, bạn đang mua một câu chuyện, một bản sắc, một tuyên bố về mình với thế giới.</p>
+
+  <div class="mm">
+    <div class="mm-label">◆ Mental Model</div>
+    <div class="mm-title">Tam Giác Nguyên Thủy Của Kinh Doanh (Primal Business Triangle)</div>
+    <p>Ba yếu tố nền tảng luôn hiện diện trong mọi hệ thống kinh doanh qua mọi thời đại: <strong>(1) Scarcity</strong> — sự khan hiếm tạo ra giá trị; <strong>(2) Exchange</strong> — trao đổi tạo ra lợi ích chung lớn hơn tổng các phần; <strong>(3) Trust</strong> — niềm tin là điều kiện tiên quyết của mọi giao dịch. Thiếu bất kỳ một yếu tố nào, hệ thống kinh doanh sẽ sụp đổ.</p>
+  </div>
+
+  <h3 style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--navy);margin:2.5rem 0 .8rem;font-weight:400;font-style:italic">Năm Kỷ Nguyên Của Kinh Doanh</h3>
+  <p>Nhìn lại 200.000 năm lịch sử nhân loại qua lăng kính kinh doanh, tôi đề xuất một khung phân tích gồm năm kỷ nguyên:</p>
+
+  <table class="era-tbl">
+    <thead>
+      <tr><th>Kỷ nguyên</th><th>Thời gian</th><th>Đặc trưng & Ví dụ</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="era-n">I</span></td>
+        <td><div class="era-name">Trao Đổi Nguyên Thủy<small>Primal Exchange</small></div></td>
+        <td class="era-detail">200.000–10.000 TCN · Barter & Specialization · Nền kinh tế nông thôn truyền thống</td>
+      </tr>
+      <tr>
+        <td><span class="era-n">II</span></td>
+        <td><div class="era-name">Nông Nghiệp & Đô Thị<small>Agriculture & Cities</small></div></td>
+        <td class="era-detail">10.000–500 TCN · Thặng dư & Giao thương · Chợ truyền thống, nền kinh tế địa phương</td>
+      </tr>
+      <tr>
+        <td><span class="era-n">III</span></td>
+        <td><div class="era-name">Đế Chế & Thương Mại<small>Empires & Commerce</small></div></td>
+        <td class="era-detail">500 TCN–1750 · Tiền tệ, Luật pháp, Mạng lưới · Ngân hàng, Bảo hiểm, Hợp đồng</td>
+      </tr>
+      <tr>
+        <td><span class="era-n">IV</span></td>
+        <td><div class="era-name">Công Nghiệp Hóa<small>Industrialization</small></div></td>
+        <td class="era-detail">1750–1970 · Sản xuất quy mô, Vốn tài chính · Chuỗi cung ứng toàn cầu</td>
+      </tr>
+      <tr>
+        <td><span class="era-n">V</span></td>
+        <td><div class="era-name" style="color:var(--gold)">Tri Thức & AI<small style="color:var(--muted)">Knowledge & AI</small></div></td>
+        <td class="era-detail" style="color:var(--navy)">1970–Nay · Dữ liệu, Nền tảng, Trí tuệ nhân tạo · Google, Amazon, ChatGPT</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Mỗi kỷ nguyên không phủ nhận kỷ nguyên trước mà <strong>tích hợp và mở rộng</strong> nó. Đây là điều mà nhiều nhà phân tích kinh doanh bỏ qua khi quá tập trung vào sự "phá vỡ" mà quên mất sự kế thừa.</p>
+
+  <div style="display:flex;gap:12px;margin-top:2rem;flex-wrap:wrap">
+    <button class="btn-p" onclick="showById('ch0_2')">Tiếp tục: 0.2 →</button>
+    <button class="btn-s" onclick="showById('ch0')">← Câu chuyện mở đầu</button>
+  </div>
+</div>
+</div>
+
+<!-- CH0.2 -->
+<div class="section" id="ch0_2">
+<div class="content">
+  <p class="content-label">Chương 0 · Phần 0.2</p>
+  <h2>Năm Lực Nguyên Thủy<br>Định Hình Kinh Doanh</h2>
+  <div class="content-rule"></div>
+
+  <p>Dù bạn đang phân tích mô hình kinh doanh của một ngôi làng cổ đại ở Mesopotamia hay chiến lược mở rộng của Amazon, bạn sẽ luôn tìm thấy dấu vết của năm lực nguyên thủy này:</p>
+
+  <div class="mm">
+    <div class="mm-label">◆ Mental Model</div>
+    <div class="mm-title">Năm Lực Nguyên Thủy (The Five Primal Forces)</div>
+    <p>Năm lực định hình mọi hệ thống kinh doanh trong lịch sử nhân loại: <strong>(1) Scarcity — Khan hiếm; (2) Specialization — Chuyên môn hóa; (3) Trust — Niềm tin; (4) Information — Thông tin; (5) Power — Quyền lực.</strong> Mọi sự kiện, xu hướng, hay thách thức kinh doanh đều có thể được giải thích qua sự tương tác của năm lực này.</p>
+  </div>
+
+  <div class="force-grid">
+    <div class="fc"><div class="fc-n">01</div>
+      <div class="fc-title">Khan Hiếm</div><div class="fc-en">Scarcity</div>
+      <p>Khan hiếm là lực nguyên thủy nhất. Homo Sapiens không chỉ tranh giành nguồn lực — chúng ta còn <em>tạo ra</em> sự khan hiếm nhân tạo (thương hiệu, bằng sáng chế, độc quyền) để duy trì giá trị. Apple giới hạn số lượng iPhone Pro không phải vì thiếu linh kiện — mà vì khan hiếm <em>nhận thức</em> làm tăng giá trị.</p>
+    </div>
+    <div class="fc"><div class="fc-n">02</div>
+      <div class="fc-title">Chuyên Môn Hóa</div><div class="fc-en">Specialization</div>
+      <p>Kabo và Zuri không tự làm tất cả vì họ <em>biết</em> rằng làm ít thứ hơn nhưng tốt hơn sẽ mang lại kết quả tốt hơn cho cả hai — nền tảng của lợi thế so sánh Ricardo. Ngay cả trong AI: LLM chuyên về ngôn ngữ; vision model chuyên về hình ảnh; mỗi cái tốt hơn model tổng quát.</p>
+    </div>
+    <div class="fc"><div class="fc-n">03</div>
+      <div class="fc-title">Niềm Tin</div><div class="fc-en">Trust</div>
+      <p>Tại sao Kabo không đơn giản lấy bằng vũ lực? Niềm tin — xây dựng qua lặp lại, thể chế, và thương hiệu — là yếu tố giảm chi phí giao dịch từ vô hạn xuống có thể chấp nhận được. Fukuyama đã chứng minh: xã hội có mức tin tưởng cao hơn tạo ra kinh tế tốt hơn.</p>
+    </div>
+    <div class="fc"><div class="fc-n">04</div>
+      <div class="fc-title">Thông Tin</div><div class="fc-en">Information</div>
+      <p>Vấn đề kinh tế không phải là tối ưu hóa nguồn lực đã biết — mà là xử lý <em>thông tin phân tán trong hàng triệu tâm trí cá nhân.</em> Hayek đã nhìn thấy điều này từ năm 1945. AI đang thay đổi ai và cái gì có thể xử lý thông tin đó.</p>
+    </div>
+    <div class="fc wide"><div class="fc-n">05</div>
+      <div class="fc-title">Quyền Lực</div><div class="fc-en">Power</div>
+      <p>Kinh doanh không xảy ra trong chân không chính trị. Quyền lực thị trường, quyền lực thể chế, và quyền lực văn hóa đều định hình điều gì có thể và không thể xảy ra trong nền kinh tế — từ thời Hammurabi đến thời FTC kiện Google. Hiểu cấu trúc quyền lực trong bất kỳ ngành nào là điều kiện tiên quyết để cạnh tranh hiệu quả.</p>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:12px;margin-top:2rem;flex-wrap:wrap">
+    <button class="btn-p" onclick="showById('ch0_3')">Tiếp tục: 0.3 →</button>
+    <button class="btn-s" onclick="showById('ch0_1')">← 0.1 Vũ trụ kinh doanh</button>
+  </div>
+</div>
+</div>
+
+<!-- CH0.3 -->
+<div class="section" id="ch0_3">
+<div class="content">
+  <p class="content-label">Chương 0 · Phần 0.3</p>
+  <h2>Bản Đồ Quyết Định</h2>
+  <p style="font-style:italic;color:var(--muted);margin-bottom:1.5rem;font-size:.93rem">The Decision Map</p>
+  <div class="content-rule"></div>
+
+  <p>Một trong những đóng góp quan trọng nhất của series này là cung cấp cho bạn một bản đồ quyết định — một khung tư duy có hệ thống để tiếp cận bất kỳ vấn đề kinh doanh nào.</p>
+  <p>Bản đồ quyết định này được xây dựng từ sự tổng hợp của năm thập kỷ nghiên cứu, giảng dạy, và tư vấn. Nó không phải là công cụ thần kỳ — mà là kỷ luật tư duy.</p>
+
+  <div class="dm">
+    <div class="dm-head"><span>Cấp độ</span><span>Câu hỏi then chốt</span></div>
+    <div class="dm-row">
+      <div class="dm-key">WHY</div>
+      <div class="dm-val"><strong>Triết lý tồn tại</strong> — Tại sao tổ chức này tồn tại? Ai được hưởng lợi và tại sao họ quan tâm? Đây là tầng mà Simon Sinek gọi là "Start with Why" và Frankl gọi là "ý chí tìm kiếm ý nghĩa". Thiếu tầng này, mọi chiến lược đều là tay không có đầu.</div>
+    </div>
+    <div class="dm-row">
+      <div class="dm-key">WHAT</div>
+      <div class="dm-val"><strong>Mô hình giá trị</strong> — Chúng ta tạo ra giá trị gì, cho ai, và bằng cách nào? Đây là nơi Business Model Canvas và Value Proposition Design hoạt động. Nhưng nó phải được neo bởi tầng WHY phía trên.</div>
+    </div>
+    <div class="dm-row">
+      <div class="dm-key">WHO</div>
+      <div class="dm-val"><strong>Kiến trúc con người</strong> — Ai tạo ra giá trị? Ai nhận giá trị? Ai kiểm soát? Ai bị ảnh hưởng? Stakeholder theory bắt đầu từ đây — và thường bị bỏ qua cho đến khi ai đó bị thiệt hại và phản ứng.</div>
+    </div>
+    <div class="dm-row">
+      <div class="dm-key">HOW &<br>WHEN</div>
+      <div class="dm-val"><strong>Thực thi & Nhịp điệu</strong> — Làm như thế nào và khi nào? Đây là tầng mà phần lớn sách quản lý và chương trình MBA tập trung vào — quan trọng, nhưng không phải nền tảng. Làm đúng thứ sai vẫn là thất bại.</div>
+    </div>
+  </div>
+
+  <p>Vấn đề của hầu hết doanh nghiệp không phải là HOW — họ thường rất giỏi HOW. Vấn đề là họ chưa bao giờ nghiêm túc hỏi WHY, và do đó WHAT của họ dần trở nên lạc hướng khỏi giá trị thực sự.</p>
+
+  <div class="mm">
+    <div class="mm-label">◆ Ứng dụng thực tiễn</div>
+    <div class="mm-title">Kiểm tra bản đồ quyết định của bạn</div>
+    <p>Lấy một quyết định quan trọng bạn đang phải đưa ra. Thử trả lời theo thứ tự: <em>Tại sao quyết định này quan trọng (WHY)?</em> Rồi mới đến <em>Chúng ta sẽ tạo ra giá trị gì (WHAT)?</em> Rồi <em>Ai liên quan (WHO)?</em> Cuối cùng mới đến <em>Làm như thế nào và khi nào (HOW & WHEN)?</em> Nếu bạn không thể trả lời WHY rõ ràng, dừng lại — mọi thứ còn lại đều có nguy cơ sai hướng.</p>
+  </div>
+
+  <div style="display:flex;gap:12px;margin-top:2rem;flex-wrap:wrap">
+    <button class="btn-p" onclick="showById('ch0_4')">Tiếp tục: 0.4 →</button>
+    <button class="btn-s" onclick="showById('ch0_2')">← 0.2 Năm lực nguyên thủy</button>
+  </div>
+</div>
+</div>
+
+<!-- CH0.4 -->
+<div class="section" id="ch0_4">
+<div class="content">
+  <p class="content-label">Chương 0 · Phần 0.4</p>
+  <h2>Ba Trục Triết Học</h2>
+  <p style="font-style:italic;color:var(--muted);margin-bottom:1.5rem;font-size:.93rem">Cách Đọc Cuốn Sách Này</p>
+  <div class="content-rule"></div>
+
+  <p>Toàn bộ series "Bản Chất Của Kinh Doanh" được xây dựng trên ba trục triết học xuyên suốt — ba lăng kính để nhìn vào mọi hiện tượng kinh doanh qua mọi thời đại:</p>
+
+  <div class="axes">
+    <div class="ax">
+      <div class="ax-icon">🔬</div>
+      <div class="ax-title">Tiến Hóa</div>
+      <div class="ax-en">Evolution</div>
+      <p>Kinh doanh là một quá trình tiến hóa — không có thiết kế thông minh, chỉ có chọn lọc. Những thứ tạo ra giá trị sống sót; những thứ không làm được biến mất.</p>
+    </div>
+    <div class="ax">
+      <div class="ax-icon">🕸</div>
+      <div class="ax-title">Hệ Thống</div>
+      <div class="ax-en">Systems</div>
+      <p>Kinh doanh là một hệ thống phức tạp — không thể hiểu từng phần riêng lẻ mà không hiểu cách chúng tương tác. Emergence và feedback loops là ngôn ngữ của hệ thống.</p>
+    </div>
+    <div class="ax">
+      <div class="ax-icon">✦</div>
+      <div class="ax-title">Ý Nghĩa</div>
+      <div class="ax-en">Meaning</div>
+      <p>Con người không chỉ trao đổi hàng hóa — họ trao đổi ý nghĩa, bản sắc, và câu chuyện. Nền kinh tế là một hệ thống ý nghĩa trước khi là hệ thống giá trị.</p>
+    </div>
+  </div>
+
+  <p>Ba trục này không phải là lý thuyết trừu tượng — chúng là công cụ phân tích thực tiễn. Khi đọc bất kỳ chương nào trong series, hãy luôn hỏi:</p>
+  <div class="mm">
+    <div class="mm-label">◆ Ba câu hỏi xuyên suốt</div>
+    <div class="mm-title">Bộ lọc triết học</div>
+    <p><strong>Tiến hóa:</strong> Tại sao hiện tượng này tồn tại — áp lực chọn lọc nào đã tạo ra nó và duy trì nó? <strong>Hệ thống:</strong> Cơ chế phản hồi nào đang vận hành — điều gì khuếch đại nó, điều gì kiểm soát nó? <strong>Ý nghĩa:</strong> Câu chuyện nào đang được kể — và ai đang tin vào câu chuyện đó?</p>
+  </div>
+
+  <p>Mỗi chương trong series sẽ tiếp cận chủ đề của mình qua cả ba lăng kính này — đôi khi rõ ràng, đôi khi ngầm. Khi bạn quen dùng cả ba, bạn sẽ nhận ra rằng mọi hiện tượng kinh doanh quan trọng đều có thể được hiểu sâu hơn khi nhìn từ cả ba góc độ.</p>
+
+  <div class="pq">
+    <p>"Hành trình này bắt đầu từ buổi bình minh của nhân loại và kết thúc ở chỗ chúng ta đang đứng hôm nay — nhìn vào bình minh thứ hai mà trí tuệ nhân tạo đang mang lại. Tôi hy vọng rằng khi đi đến cuối hành trình, bạn sẽ nhìn thấy thế giới kinh doanh xung quanh mình với một đôi mắt khác."</p>
+    <cite>— Tác giả</cite>
+  </div>
+
+  <p class="footnote">→ Tiếp theo: Chương 1 — Trao Đổi Nguyên Thủy: Khi Kinh Doanh Còn Là Bản Năng (trang 51)</p>
+
+  <div style="display:flex;gap:12px;margin-top:2rem;flex-wrap:wrap">
+    <button class="btn-s" onclick="showById('ch0_3')">← 0.3 Bản đồ quyết định</button>
+    <button class="btn-s" onclick="showById('toc')">Xem mục lục đầy đủ</button>
+  </div>
+</div>
+</div>
+
+</main>
+</div>
+
+<script>
+function show(id, el) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.sb-link').forEach(l => l.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if (el) el.classList.add('active');
+  document.querySelector('.main').scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function showById(id) {
+  const sectionToLink = {
+    'cover': 0, 'toc': 1, 'preface': 2,
+    'ch0': 3, 'ch0_1': 4, 'ch0_2': 5, 'ch0_3': 6, 'ch0_4': 7
+  };
+  const links = document.querySelectorAll('.sb-link');
+  const linkIdx = sectionToLink[id];
+  show(id, linkIdx !== undefined ? links[linkIdx] : null);
+}
+</script>
+</body>
+</html>
